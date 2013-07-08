@@ -46,7 +46,7 @@ dataLayer.get("someID", toolDomain, "someLayer"); //One-time get of a value from
 
 ```JavaScript
 
-myTracker = { "track" : function(x){console.log("myTracker: " + x)} };
+var myTracker = { "track" : function(x){console.log("myTracker: " + x)} }; //replicate tracking tool
 
 dataLayer.ready();  //We'd typically call ready after publishing, but, that is still to be built
 
