@@ -40,3 +40,19 @@ dataLayer.get("someID", toolDomain);
 
 dataLayer.get("someID", toolDomain, "someLayer"); //One-time get of a value from specified layer
 ```
+===
+
+### Console Example
+
+```JavaScript
+
+myTracker = { "track" : function(x){console.log("myTracker: " + x)} };
+
+dataLayer.ready();
+
+dataLayer.subscribe('page.id', 'myTracker.com', myTracker.track);
+
+dataLayer.publish('page.id', 'myPage');
+
+console.log("Get Example: " + dataLayer.get('page.id'));
+```
