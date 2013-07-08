@@ -1,16 +1,21 @@
-W3C Cust Exp Data Layer
+##W3C Cust Exp Data Layer
 ===
-//Basic functionality of publish(), subscribe(), get() & isReady() works
 
-//Significant functionality still missing
-//Change history is missing
-//Privacy checks are missing
-//Chaining is missing
+### Current State
+Basic functionality of publish(), subscribe(), get() & isReady() works <br> <br>
+Significant functionality still missing.<br>
+<ul><li>Change history is missing</li>
+<li>Privacy checks are missing</li>
+<li>Chaining is missing</li>
+</ul>
+===
 
-/********************************************************************************/
+###Example Usage
 
+```JavaScript
 
 /***** Publish - Usage Examples ******/
+
 dataLayer.publish("someID", "someValue"); //Simplest Addition of Data Value
 dataLayer.publish("someID", "someValue", "sensitive @analytics"); //Addition of Data Value with Privacy Policy
 dataLayer.publish("someID", "someValue", "@default", "someLayer"); //Addition of Data Value specifying dataLayer
@@ -32,3 +37,4 @@ dataLayer.get("someID", toolDomain);
 //TBD - Multiples returned in Array or Obj?
 
 dataLayer.get("someID", toolDomain, "someLayer"); //One-time get of a value from specified layer
+```
