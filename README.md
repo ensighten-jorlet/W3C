@@ -7,6 +7,8 @@ Significant functionality still missing.<br>
 <ul><li>Change history is missing</li>
 <li>Privacy checks are missing</li>
 <li>Chaining is missing</li>
+<li>Zero Error Checking</li>
+<li>Et Cetera, Et Cetera</li>
 </ul>
 ===
 
