@@ -48,7 +48,7 @@ dataLayer.get("someID", toolDomain, "someLayer"); //One-time get of a value from
 
 myTracker = { "track" : function(x){console.log("myTracker: " + x)} };
 
-dataLayer.ready();
+dataLayer.ready();  //We'd typically call ready after publishing, but, that is still to be built
 
 dataLayer.subscribe('page.id', 'myTracker.com', myTracker.track);
 
