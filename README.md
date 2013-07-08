@@ -1,5 +1,5 @@
 ##W3C Cust Exp Data Layer
-===
+
 
 ### Current State
 Basic functionality of publish(), subscribe(), get() & isReady() works <br> <br>
