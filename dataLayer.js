@@ -1,20 +1,59 @@
-
-
-
 var dataLayer = (function() {
-	/** @private */
+	/* 
+	 * @private
+	 * @member {Object} _private
+	 */
 	var _private = {
-		/* setting up global in the elements is not necessary, added for example purposes */
+		// setting up global in the elements is not necessary, added for example purposes
+		/** 
+		 * identifies which dataLayers are set as ready
+		 * @private
+		 * @member {Object} isReady
+		 */
 		"isReady": { "global": false },
+		/** 
+		 * stores the dataLayers
+		 * @private
+		 * @member {Object} layer
+		 */
 		"layer": { "global": {} },
+		/** 
+		 * contains model of dataLayer objects
+		 * @private
+		 * @member {Object} model
+		 */
 		"model": { "global": {} },
+		/** 
+		 * history for each data layer
+		 * @private
+		 * @member {Object} state
+		 */
 		"state": { "global": [] },
+		/** 
+		 * identifies the current iteration for each data layer
+		 * @private
+		 * @member {Object} currentState
+		 */
 		"currentState": { "global": 0 },
+		/** 
+		 * contains defined subscriptions by dataLayerID
+		 * @private
+		 * @member {Object} subscriptions
+		 */
 		"subscriptions": { "global": {} },
-		"privacy": { /* TBD */ },
+		/** 
+		 * stores privacy definitions
+		 * @private
+		 * @member {Object} privacy
+		 */
+		"privacy": { //TBD },
+		/** 
+		 * creates a targetLayer object & targetLayer branches
+		 * sets values
+		 * @private
+		 * @function set
+		 */
 		"set": function(targetLayer, targetID, targetValue, targetPrivacy, targetLayerID) {
-			//creates a targetLayer object & targetLayer branches
-			//sets values
 			var c = targetID.split('.'),
 				tModel = _private.model[targetLayerID];
 
@@ -35,12 +74,17 @@ var dataLayer = (function() {
 
 			return;
 		},
+		/**
+		 * define, update, and publish data layer changes.
+		 * @private
+		 * @param {string} dataID - Data of Interest
+		 * @param {object} dataValue - Value associated with dataID
+		 * @param {string} [privacyType=default] - Used to check tools against whitelist
+		 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
+		 * @returns {boolean} success indicator
+		 * @function publish
+		 */
 		"publish": function(dataID, dataValue, privacyType, layerID) {
-			//allows publishing dataLayer changes (a.k.a., set, setter, etc.)
-			//dataID - Data of Interest (String, Required)
-			//dataValue - Value associated with dataID (Various, Required)
-			//privacyType - Used to check tools against whitelist (String, Optional, Defaults to all)
-			//layerID - If multiple data layers exist on the page (String, Optional, Defaults to global)
 
 			//If there is not a dataID or dataValue there is not anything to publish
 			if (typeof(dataID) !== 'string' || typeof(dataValue) === 'undefined') {
@@ -74,15 +118,19 @@ var dataLayer = (function() {
 			}
 			return;
 		},
+		/**
+		 * Allows various analytics tools to listen for old & future dataLayer changes
+		 * @private
+		 * @param {string} dataID - Data of Interest
+		 * @param {string} toolDomain - Tool domain for privacy purposes
+		 * @param {function} toolMethod - Tool Callback which receives Data
+		 * @param {boolean} [previousPubs=false] - Optional to receive any data previously published
+		 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
+		 * @param {array} [chain] - Prohibits toolMethod from firing unless all chained values exist
+		 * @returns {boolean} success indicator
+		 * @function subscribe
+		 */
 		"subscribe": function(dataID, toolDomain, toolMethod, previousPubs, layerID, chain) {
-			//Allows various analytics tools to listen for old & future dataLayer changes
-			//dataID - Data of Interest (String)
-			//toolDomain - Tool domain for privacy purposes (String)
-			//toolMethod - Tool Callback which receives Data (function)
-			//previousPubs - Optional to receive any data previously published (bool, false if omitted)
-			//layerID - If multiple data layers exist on the page (String, Optional, Defaults to global)
-			//chain - Prohibits toolMethod from firing unless all chained values exist
-			//chain cont'd - (Array of dataIDs, Optional, false if omitted)
 
 			//If there is not a dataID or toolMethod is ommited, we cannot publish, so escape.
 			if (typeof(dataID) !== 'string' || typeof(toolMethod) === 'undefined') {
@@ -111,6 +159,15 @@ var dataLayer = (function() {
 			})
 
 		},
+		/**
+		 * Removes a subscription to a specific dataID
+		 * @private
+		 * @param {string} dataID - Data of Interest
+		 * @param {string} toolDomain - Tool domain for privacy purposes
+		 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
+		 * @returns {boolean} success indicator
+		 * @function unsubscribe
+		 */
 		"unsubscribe": function(dataID, toolDomain, layerID) {
 			//cannot unsubscribe unidentified subscriptions
 			if (typeof(dataID) !== 'string' || typeof(toolDomain) === 'undefined') {
@@ -125,6 +182,14 @@ var dataLayer = (function() {
 
 			return;
 		},
+		/**
+		 * Simple getter function for one time value retrieval
+		 * @param {string} dataID - Data of Interest
+		 * @param {string} toolDomain - Tool domain for privacy purposes
+		 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
+		 * @returns {object} returns matching value from specified dataLayer
+		 * @function get
+		 */
 		"get": function(dataID, toolDomain, layerID) {
 			//Simple getter function for one time value retrieval
 			//dataID - Data of Interest (String)
@@ -166,74 +231,78 @@ var dataLayer = (function() {
 			return true;
 		}
 	},
+		/* 
+		 * @private
+		 * @member {Object} _public
+		 */
 		_public = {
 			/** 
 			 * contains defined subscriptions by dataLayerID
-			 * @member {Object} subscriptions 
+			 * @member {Object} subscriptions
 			 */
 			"subscriptions": _private.subscriptions, //keep public
 			/** 
 			 * contains model of dataLayer objects
-			 * @member {Object} model 
+			 * @member {Object} model
 			 */
 			"model": _private.model, //keep public
 			/**
 			 * define, update, and publish data layer changes.
-			 * @param {string} dataID - Data of Interest 
-			 * @param {object} dataValue - Value associated with dataID 
-			 * @param {string} [privacyType=default] - Used to check tools against whitelist 
-			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page 
+			 * @todo add functionality to check subscription chain
+			 * @todo add functionality to check subscriptions against privacy definitions
+			 * @param {string} dataID - Data of Interest
+			 * @param {object} dataValue - Value associated with dataID
+			 * @param {string} [privacyType=default] - Used to check tools against whitelist
+			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
 			 * @returns {boolean} success indicator
 			 * @function publish
-	 		*/
+			 */
 			"publish": function(dataID, dataValue, privacyType, layerID) {
 				return _private.publish(dataID, dataValue, privacyType, layerID);
 			},
 			/**
 			 * Allows various analytics tools to listen for old & future dataLayer changes
-			 * @param {string} dataID - Data of Interest 
+			 * @todo Add functionality to check if previously subscribed.
+			 * @param {string} dataID - Data of Interest
 			 * @param {string} toolDomain - Tool domain for privacy purposes
-			 * @param {function} toolMethod - Tool Callback which receives Data 
-			 * @param {boolean} [previousPubs=false] - Optional to receive any data previously published 
-			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page 
+			 * @param {function} toolMethod - Tool Callback which receives Data
+			 * @param {boolean} [previousPubs=false] - Optional to receive any data previously published
+			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
 			 * @param {array} [chain] - Prohibits toolMethod from firing unless all chained values exist
 			 * @returns {boolean} success indicator
 			 * @function subscribe
-	 		*/
-			"subscribe": function(dataID, toolDomain, toolMethod, previousPubs, layerID) {
-				return _private.subscribe(dataID, toolDomain, toolMethod, previousPubs, layerID);
+			 */
+			"subscribe": function(dataID, toolDomain, toolMethod, previousPubs, layerID, chain) {
+				return _private.subscribe(dataID, toolDomain, toolMethod, previousPubs, layerID, chain);
 			},
 			/**
 			 * Removes a subscription to a specific dataID
-			 * @param {string} dataID - Data of Interest 
+			 * @param {string} dataID - Data of Interest
 			 * @param {string} toolDomain - Tool domain for privacy purposes
-			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page 
+			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
 			 * @returns {boolean} success indicator
 			 * @function unsubscribe
-	 		*/
+			 */
 			"unsubscribe": function(dataID, toolDomain, layerID) {
-				/*
-		         * TBD
-			     * return _private.unsubscribe(dataID, toolDomain, layerID);
-			     */
+				return _private.unsubscribe(dataID, toolDomain, layerID);
 			},
 			/**
 			 * Simple getter function for one time value retrieval
-			 * @param {string} dataID - Data of Interest 
+			 * @param {string} dataID - Data of Interest
 			 * @param {string} toolDomain - Tool domain for privacy purposes
-			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page 
+			 * @param {layerID} [layerID=global] - If multiple data layers exist on the page
 			 * @returns {object} returns matching value from specified dataLayer
 			 * @function get
-	 		*/
+			 */
 			"get": function(dataID, toolDomain, layerID) {
 				return _private.get(dataID, toolDomain, layerID);
 			},
 			/**
 			 * Called after initial setup of layer to avoid partial layer objects in state array
-			 * @param {layerID} [layerID=all] - If multiple data layers exist on the page 
+			 * @param {layerID} [layerID=all] - If multiple data layers exist on the page
 			 * @returns {boolean} success indicator
 			 * @function ready
-	 		*/
+			 */
 			"ready": function(layerID) {
 				return _private.ready(layerID);
 			}
