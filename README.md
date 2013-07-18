@@ -1,5 +1,9 @@
 ##W3C Cust Exp Data Layer
 
+### API Docs
+
+<a href="http://ensighten-jorlet.github.io/W3C/global.html">API Docs</a>
+
 
 ### Current State
 Basic functionality of publish(), subscribe(), get() & isReady() works <br> <br>
