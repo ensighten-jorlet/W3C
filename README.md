@@ -1,8 +1,6 @@
-##W3C Cust Exp Data Layer
+## W3C Cust Exp Data Layer
 
-### API Docs
-
-<a href="http://ensighten-jorlet.github.io/W3C/global.html">API Docs</a>
+### <a href="http://ensighten-jorlet.github.io/W3C/global.html">API Docs</a>
 
 
 ### Current State
@@ -14,9 +12,9 @@ Significant functionality still missing.<br>
 <li>Zero Error Checking</li>
 <li>Et Cetera, Et Cetera</li>
 </ul>
-===
 
-###Example Usage
+
+### Example Usage
 
 ```JavaScript
 
@@ -44,7 +42,7 @@ dataLayer.get("someID", toolDomain);
 
 dataLayer.get("someID", toolDomain, "someLayer"); //One-time get of a value from specified layer
 ```
-===
+
 
 ### Console Example
 
