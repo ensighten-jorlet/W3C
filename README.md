@@ -2,11 +2,7 @@
 
 <ul><li>Written as a discussion example for handling asynchronous changes to the Data Layer.</li>
 <li>"TBD" items a byproduct of unresolved group decisions.</li>
-<li><b>Please see API Docs and dataLayer.js</b></li></ul> 
-
-
-### <a href="http://ensighten-jorlet.github.io/W3C/global.html">API Docs</a>
-
+<li><b>Please see the <a href="http://ensighten-jorlet.github.io/W3C/global.html">API Docs</a> and <a href="https://github.com/ensighten-jorlet/W3C/blob/master/dataLayer.js">dataLayer.js</a></b></li></ul> 
 
 
 ### Current State
