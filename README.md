@@ -1,7 +1,7 @@
 ## <a href="https://www.w3.org/community/custexpdata/"> W3C Customer Experience Digital Data Layer <a> Asynchronous Helper Example
 
-<ul><li>Written as a discussion example for handling asynchronous changes to the Data Layer.<li>
-<li>"TBD" items a byproduct of unresolved group decisions.<li>
+<ul><li>Written as a discussion example for handling asynchronous changes to the Data Layer.</li>
+<li>"TBD" items a byproduct of unresolved group decisions.</li>
 <li><b>Please see API Docs and dataLayer.js</b></li><ul> 
 
 
